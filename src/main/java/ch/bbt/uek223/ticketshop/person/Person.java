@@ -5,6 +5,7 @@ import ch.bbt.uek223.ticketshop.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ import java.util.*;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 @RequiredArgsConstructor
 public class Person {
     @Id
@@ -30,8 +32,8 @@ public class Person {
     @ToString.Exclude
     private Set<Event> events;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Role assignedRoles;
+//    @Enumerated(EnumType.ORDINAL)
+//    private Role assignedRoles;
 
     @Override
     public boolean equals(Object o) {

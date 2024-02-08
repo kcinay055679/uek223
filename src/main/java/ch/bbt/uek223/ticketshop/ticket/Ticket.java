@@ -4,6 +4,7 @@ import ch.bbt.uek223.ticketshop.event.Event;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 @RequiredArgsConstructor
 public class Ticket {
 

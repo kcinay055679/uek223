@@ -5,6 +5,7 @@ import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.sql.Date;
 import java.util.*;
@@ -12,6 +13,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
+@Accessors(chain = true)
 @ToString
 @RequiredArgsConstructor
 public class Event {
