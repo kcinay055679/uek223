@@ -1,5 +1,6 @@
-package ch.bbt.uek223.ticketshop.ticket;
+package ch.bbt.uek223.ticketshop.ticket.dto;
 
+import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;

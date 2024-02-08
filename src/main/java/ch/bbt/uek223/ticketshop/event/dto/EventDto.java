@@ -1,4 +1,4 @@
-package ch.bbt.uek223.ticketshop.event;
+package ch.bbt.uek223.ticketshop.event.dto;
 
 import jakarta.validation.constraints.Size;
 

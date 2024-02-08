@@ -1,6 +1,7 @@
 package ch.bbt.uek223.ticketshop;
 
-public interface Mapper <E, DTO>{
-    DTO toDto(E e);
-    E toEntity(DTO dto);
+public interface Mapper <E, U>{
+    U toDto(E u);
+
+    E toEntity(U u);
 }

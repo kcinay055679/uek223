@@ -1,6 +1,7 @@
 package ch.bbt.uek223.ticketshop.event;
 
 import ch.bbt.uek223.ticketshop.Mapper;
+import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import org.springframework.stereotype.Component;
 

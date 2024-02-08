@@ -14,9 +14,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class PersonRequestDto implements Serializable {
+public class PersonRequestDto extends PersonResponseDto implements Serializable {
     @Size(max = 255)
     private String password;
 }

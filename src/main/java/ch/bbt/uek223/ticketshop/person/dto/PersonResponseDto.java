@@ -15,11 +15,11 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @Accessors(chain = true)
-public class PersonResponseDto extends PersonRequestDto implements Serializable {
+public class PersonResponseDto implements Serializable {
     private Integer id;
     @Size(max = 255)
-    private String password;
+    private String email;
     private Set<Integer> eventIds;
 }
