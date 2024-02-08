@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.*;
     @Test
     @Order(5)
      void amountToBuyField_doesExist() {
-        assertDoesNotThrow(() -> TicketDto.class.getDeclaredField("amountToBuy"));
+        assertDoesNotThrow(() -> TicketDto.class.getDeclaredField("amount"));
     }
 
     @Test
@@ -78,14 +78,14 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"getId", "getName", "getDescription", "getAmountToBuy", "getEventId"})
+    @CsvSource(value = {"getId", "getName", "getDescription", "getAmount", "getEventId"})
     @Order(9)
      void checkGetter_doExist(String getterName) {
         assertDoesNotThrow(() -> TicketDto.class.getDeclaredMethod(getterName));
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setDescription, java.lang.String", "setAmountToBuy, java.lang.Integer", "setEventId, java.lang.Integer"})
+    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setDescription, java.lang.String", "setAmount, java.lang.Integer", "setEventId, java.lang.Integer"})
     @Order(9)
      void checkSetter_doExist(String setterName, String parameterClassName) {
         assertDoesNotThrow(() -> TicketDto.class.getDeclaredMethod(setterName, Class.forName(parameterClassName)));

@@ -1,5 +1,6 @@
 package ch.bbt.uek223.ticketshop.ticket.dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -22,5 +23,5 @@ public class TicketDto implements Serializable {
     private String description;
     @Size(max = 255)
     private String name;
-    private Integer eventId;
+    @NotNull private Integer eventId;
 }

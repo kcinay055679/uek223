@@ -194,7 +194,7 @@ class EventTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setOwner,ch.bbt.uek223.ticketshop.person.Person", "setDate, java.sql.Date", "setDescription, java.lang.String", "setTickets, java.util.Set"})
+    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setOwner,ch.bbt.uek223.ticketshop.person.Person", "setDate, java.sql.Date", "setDescription, java.lang.String", "setTickets, java.util.List"})
     @Order(10)
     void checkSetter_doExist(String setterName, String parameterClassName) {
         assertDoesNotThrow(() -> Event.class.getDeclaredMethod(setterName, Class.forName(parameterClassName)));

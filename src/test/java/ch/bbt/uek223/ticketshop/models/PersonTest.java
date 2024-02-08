@@ -204,7 +204,6 @@ class PersonTest {
 
     @Test
     @Order(15)
-    @Disabled
     void assignedRolesField_isOneToMany() {
         try {
             assertNotNull(Person.class
@@ -218,7 +217,6 @@ class PersonTest {
 
     @Test
     @Order(15)
-    @Disabled
     void assignedRolesField_isAnnotatedWithJoinTable() {
         try {
             assertNotNull(Person.class

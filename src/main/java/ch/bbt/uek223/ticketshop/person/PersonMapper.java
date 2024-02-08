@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class PersonMapper implements Mapper<Person, PersonResponseDto> {
     public PersonResponseDto toDto(Person person) {
-        return new PersonResponseDto(person.getId(), person.getEmail(), person.getEvents().stream().map(Event::getId).collect(Collectors.toSet()));
+        return new PersonResponseDto(person.getId(), person.getEmail(), person.getEvents().stream().map(Event::getId).toList());
     }
 
     public Person toEntity(PersonResponseDto personResponseDto) {

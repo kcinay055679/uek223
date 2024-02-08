@@ -1,5 +1,6 @@
 package ch.bbt.uek223.ticketshop.person;
 
+import ch.bbt.uek223.ticketshop.Role;
 import ch.bbt.uek223.ticketshop.event.Event;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -31,8 +32,12 @@ public class Person {
     @ToString.Exclude
     private Set<Event> events;
 
-//    @Enumerated(EnumType.ORDINAL)
-//    private Role assignedRoles;
+    @ManyToMany
+    @JoinTable(
+            name = "person_role",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> assignedRoles;
 
     @Override
     public boolean equals(Object o) {

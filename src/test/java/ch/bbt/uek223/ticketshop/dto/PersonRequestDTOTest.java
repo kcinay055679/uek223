@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
     @Test
     @Order(1)
      void constructor_hasEmptyConstructor() {
-        Class<?> personRequestDTOClass = PersonRequestDTOTest.class;
+        Class<?> personRequestDTOClass = PersonRequestDto.class;
         boolean doesPersonRequestDTOCLassHaveEmptyConstructor = Arrays.stream(personRequestDTOClass.getConstructors())
                 .anyMatch(constructor -> constructor.getParameterCount() == 0);
         assertTrue(doesPersonRequestDTOCLassHaveEmptyConstructor);

@@ -29,7 +29,7 @@ public class DataDTOUtil {
             PersonResponseDto person = new PersonResponseDto();
             person.setId(i);
             person.setEmail("person" + i + "@foo.bar");
-            person.setEventIds(new HashSet<>());
+            person.setEventIds(new ArrayList<>());
             person.getEventIds().add(i);
             personList.add(person);
         }
@@ -41,7 +41,7 @@ public class DataDTOUtil {
         personRequestDTO.setId(1);
         personRequestDTO.setEmail("person1@foo.bar");
         personRequestDTO.setPassword("password1");
-        personRequestDTO.setEventIds(new HashSet<>());
+        personRequestDTO.setEventIds(new ArrayList<>());
         personRequestDTO.getEventIds().add(1);
 
         return personRequestDTO;

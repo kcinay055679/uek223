@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,5 +22,5 @@ public class PersonResponseDto implements Serializable {
     private Integer id;
     @Size(max = 255)
     private String email;
-    private Set<Integer> eventIds;
+    private List<Integer> eventIds;
 }

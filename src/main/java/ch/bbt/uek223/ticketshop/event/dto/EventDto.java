@@ -1,6 +1,6 @@
 package ch.bbt.uek223.ticketshop.event.dto;
 
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -19,11 +19,11 @@ import java.util.List;
 @Accessors(chain = true)
 public class EventDto implements Serializable {
     private Integer id;
-    private Date date;
+    @NotNull private Date date;
     @Size(max = 255)
     private String description;
     @Size(max = 255)
-    private String name;
-    private Integer ownerId;
+    @NotBlank private String name;
+    @NotNull private Integer ownerId;
     private List<Integer> ticketIds;
 }
