@@ -12,6 +12,6 @@ public class TickerMapper implements Mapper<Ticket, TicketDto> {
     }
 
     public Ticket toEntity(TicketDto eventDto) {
-        return new Ticket().setId(eventDto.id()).setDescription(eventDto.description()).setName(eventDto.name()).setAmount(eventDto.amount()).setEvent(new Event().setId(eventDto.eventId()));
+        return new Ticket().setId(eventDto.getId()).setDescription(eventDto.getDescription()).setName(eventDto.getName()).setAmount(eventDto.getAmount()).setEvent(new Event().setId(eventDto.getEventId()));
     }
 }

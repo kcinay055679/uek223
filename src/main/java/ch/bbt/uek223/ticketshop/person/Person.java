@@ -1,7 +1,6 @@
 package ch.bbt.uek223.ticketshop.person;
 
 import ch.bbt.uek223.ticketshop.event.Event;
-import ch.bbt.uek223.ticketshop.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;

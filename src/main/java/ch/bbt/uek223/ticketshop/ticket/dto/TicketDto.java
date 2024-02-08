@@ -1,13 +1,26 @@
 package ch.bbt.uek223.ticketshop.ticket.dto;
 
-import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 /**
- * DTO for {@link Ticket}
+ * DTO for {@link ch.bbt.uek223.ticketshop.ticket.Ticket}
  */
-public record TicketDto(Integer id, Integer amount, @Size(max = 255) String description, @Size(max = 255) String name,
-                        Integer eventId) implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@Accessors(chain = true)
+public class TicketDto implements Serializable {
+    private Integer id;
+    private Integer amount;
+    @Size(max = 255)
+    private String description;
+    @Size(max = 255)
+    private String name;
+    private Integer eventId;
 }

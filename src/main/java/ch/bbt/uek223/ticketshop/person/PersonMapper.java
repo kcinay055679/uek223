@@ -2,10 +2,8 @@ package ch.bbt.uek223.ticketshop.person;
 
 import ch.bbt.uek223.ticketshop.Mapper;
 import ch.bbt.uek223.ticketshop.event.Event;
-import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonRequestDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonResponseDto;
-import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;

@@ -38,7 +38,7 @@ public class Event {
 
     @OneToMany(mappedBy = "event")
     @ToString.Exclude
-    private Set<Ticket> tickets;
+    private List<Ticket> tickets;
 
     @Override
     public boolean equals(Object o) {
