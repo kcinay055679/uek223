@@ -1,6 +1,7 @@
 package ch.bbt.uek223.ticketshop.models;
 
 
+import ch.bbt.uek223.ticketshop.DataUtil;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -152,17 +153,17 @@ class PersonTest {
         assertDoesNotThrow(() -> Person.class.getDeclaredMethod("equals", Object.class));
     }
 
-//    @Test
-//    @Order(6)
-//    void equalsMethod_comparesOnlyId() {
-//        Person person1 = DataUtil.getTestPerson();
-//        Person person2 = DataUtil.getTestPerson();
-//
-//        person1.setEmail("NotSameEmail@foo.bar");
-//        person1.setPassword("NotSamePassword");
-//
-//        assertEquals(person1, person2);
-//    }
+    @Test
+    @Order(6)
+    void equalsMethod_comparesOnlyId() {
+        Person person1 = DataUtil.getTestPerson();
+        Person person2 = DataUtil.getTestPerson();
+
+        person1.setEmail("NotSameEmail@foo.bar");
+        person1.setPassword("NotSamePassword");
+
+        assertEquals(person1, person2);
+    }
 
     @Test
     @Order(7)
@@ -170,14 +171,14 @@ class PersonTest {
         assertDoesNotThrow(() -> Person.class.getDeclaredMethod("hashCode"));
     }
 
-//    @Test
-//    @Order(7)
-//    void hashCodeMethod_hashesId() {
-//        Person person1 = DataUtil.getTestPerson();
-//        Person person2 = DataUtil.getTestPerson();
-//
-//        assertEquals(person1.hashCode(), person2.hashCode());
-//    }
+    @Test
+    @Order(7)
+    void hashCodeMethod_hashesId() {
+        Person person1 = DataUtil.getTestPerson();
+        Person person2 = DataUtil.getTestPerson();
+
+        assertEquals(person1.hashCode(), person2.hashCode());
+    }
 
     @ParameterizedTest
     @CsvSource(value = {"getId", "getEmail", "getPassword", "getEvents"})

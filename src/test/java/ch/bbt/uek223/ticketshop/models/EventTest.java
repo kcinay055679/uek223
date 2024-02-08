@@ -1,5 +1,6 @@
 package ch.bbt.uek223.ticketshop.models;
 
+import ch.bbt.uek223.ticketshop.DataUtil;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -153,16 +154,15 @@ class EventTest {
 
     @Test
     @Order(8)
-    @Disabled
     void equalsMethod_comparesOnlyId() {
-//        Event event1 = DataUtil.getTestEvent();
-//        Event event2 = DataUtil.getTestEvent();
-//
-//        event1.setName("NotSameName");
-//        event1.setDescription("NotSameDescription");
-//        event1.setDate(Date.valueOf("1970-01-01").toLocalDate());
+        Event event1 = DataUtil.getTestEvent();
+        Event event2 = DataUtil.getTestEvent();
 
-//        assertEquals(event1, event2);
+        event1.setName("NotSameName");
+        event1.setDescription("NotSameDescription");
+        event1.setDate(Date.valueOf("1970-01-01"));
+
+        assertEquals(event1, event2);
     }
 
     @Test
@@ -171,19 +171,18 @@ class EventTest {
         assertDoesNotThrow(() -> Event.class.getDeclaredMethod("hashCode"));
     }
 
-//    @Test
-//    @Order(9)
-//    @Disabled
-//    void hashCodeMethod_hashesId() {
-//        Event event1 = DataUtil.getTestEvent();
-//        Event event2 = DataUtil.getTestEvent();
-//
-//        event1.setDescription("Different description");
-//        event1.setName("Not same name");
-//        event1.setOwner(new Person());
-//
-//        assertEquals(event1.hashCode(), event2.hashCode());
-//    }
+    @Test
+    @Order(9)
+    void hashCodeMethod_hashesId() {
+        Event event1 = DataUtil.getTestEvent();
+        Event event2 = DataUtil.getTestEvent();
+
+        event1.setDescription("Different description");
+        event1.setName("Not same name");
+        event1.setOwner(new Person());
+
+        assertEquals(event1.hashCode(), event2.hashCode());
+    }
 
     @ParameterizedTest
     @CsvSource(value = {"getId", "getName", "getOwner", "getDate", "getDescription", "getTickets"})

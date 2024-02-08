@@ -1,5 +1,6 @@
 package ch.bbt.uek223.ticketshop.models;
 
+import ch.bbt.uek223.ticketshop.DataUtil;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -145,16 +146,16 @@ class TicketTest {
         assertDoesNotThrow(() -> Ticket.class.getDeclaredMethod("hashCode"));
     }
 
-//    @Test
-//    @Order(7)
-//    void hashCodeMethod_hashesOnlyId() {
-//        Ticket ticket1 = DataUtil.getTestTicket();
-//        Ticket ticket2 = DataUtil.getTestTicket();
-//
-//        ticket1.setName("Not same name");
-//
-//        assertEquals(ticket1.hashCode(), ticket2.hashCode());
-//    }
+    @Test
+    @Order(7)
+    void hashCodeMethod_hashesOnlyId() {
+        Ticket ticket1 = DataUtil.getTestTicket();
+        Ticket ticket2 = DataUtil.getTestTicket();
+
+        ticket1.setName("Not same name");
+
+        assertEquals(ticket1.hashCode(), ticket2.hashCode());
+    }
 
     @ParameterizedTest
     @CsvSource(value = {"getId", "getName", "getDescription", "getAmount", "getEvent"})
