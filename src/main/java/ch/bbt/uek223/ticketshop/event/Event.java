@@ -1,9 +1,10 @@
-package ch.bbt.uek223.ticketshop.models;
+package ch.bbt.uek223.ticketshop.event;
 
+import ch.bbt.uek223.ticketshop.person.Person;
+import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.sql.Date;
 import java.util.*;

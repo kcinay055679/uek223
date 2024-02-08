@@ -1,6 +1,7 @@
 package ch.bbt.uek223.ticketshop.models;
 
 import ch.bbt.uek223.ticketshop.DataUtil;
+import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -165,7 +166,7 @@ class TicketTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setDescription, java.lang.String", "setAmount, java.lang.Integer", "setEvent, ch.bbt.uek223.ticketshop.models.Event"})
+    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setDescription, java.lang.String", "setAmount, java.lang.Integer", "setEvent, ch.bbt.uek223.ticketshop.event.Event"})
     @Order(8)
     void checkSetter_doExist(String setterName, String parameterClassName) {
         assertDoesNotThrow(() -> Ticket.class.getDeclaredMethod(setterName, Class.forName(parameterClassName)));

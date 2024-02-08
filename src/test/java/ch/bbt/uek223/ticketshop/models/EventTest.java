@@ -1,6 +1,8 @@
 package ch.bbt.uek223.ticketshop.models;
 
 import ch.bbt.uek223.ticketshop.DataUtil;
+import ch.bbt.uek223.ticketshop.event.Event;
+import ch.bbt.uek223.ticketshop.person.Person;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -192,7 +194,7 @@ class EventTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setOwner,ch.bbt.uek223.ticketshop.models.Person", "setDate, java.sql.Date", "setDescription, java.lang.String", "setTickets, java.util.Set"})
+    @CsvSource(value = {"setId, java.lang.Integer", "setName, java.lang.String", "setOwner,ch.bbt.uek223.ticketshop.person.Person", "setDate, java.sql.Date", "setDescription, java.lang.String", "setTickets, java.util.Set"})
     @Order(10)
     void checkSetter_doExist(String setterName, String parameterClassName) {
         assertDoesNotThrow(() -> Event.class.getDeclaredMethod(setterName, Class.forName(parameterClassName)));

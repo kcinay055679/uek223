@@ -1,6 +1,8 @@
 package ch.bbt.uek223.ticketshop;
 
-import ch.bbt.uek223.ticketshop.models.*;
+import ch.bbt.uek223.ticketshop.event.Event;
+import ch.bbt.uek223.ticketshop.person.Person;
+import ch.bbt.uek223.ticketshop.ticket.Ticket;
 
 public class DataUtil {
     public static Event getTestEvent() {

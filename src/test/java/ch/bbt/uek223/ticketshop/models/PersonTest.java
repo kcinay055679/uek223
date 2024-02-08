@@ -2,6 +2,7 @@ package ch.bbt.uek223.ticketshop.models;
 
 
 import ch.bbt.uek223.ticketshop.DataUtil;
+import ch.bbt.uek223.ticketshop.person.Person;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
