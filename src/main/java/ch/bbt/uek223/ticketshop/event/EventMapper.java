@@ -5,7 +5,6 @@ import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
 
 @Component
 public class EventMapper implements Mapper<Event, EventDto> {

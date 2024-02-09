@@ -1,16 +1,15 @@
 package ch.bbt.uek223.ticketshop.event;
 
 
+import ch.bbt.uek223.ticketshop.Validator;
 import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
-public class EventService {
+public class EventService extends Validator<Event> {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
 
@@ -20,11 +19,19 @@ public class EventService {
     }
 
     public EventDto create(EventDto expectedEventDTO) {
-        return null;
+        Event expectedEvent = eventMapper.toEntity(expectedEventDTO);
+        Event actualEvent = eventRepository.save(expectedEvent);
+        return eventMapper.toDto(actualEvent);
     }
 
     public EventDto update(EventDto expectedEventDTO, int i) {
-        return null;
+        Event existingEvent = eventRepository.findById(i).orElseThrow(EntityNotFoundException::new);
+        Event changingEvents = eventMapper.toEntity(expectedEventDTO);
+        existingEvent.setName(changingEvents.getName());
+        existingEvent.setDescription(changingEvents.getDescription());
+        existingEvent.setDate(changingEvents.getDate());
+        existingEvent.setTickets(changingEvents.getTickets());
+        return eventMapper.toDto(eventRepository.save(existingEvent));
     }
 
     public List<EventDto> findAll() {

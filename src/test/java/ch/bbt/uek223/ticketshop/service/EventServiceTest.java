@@ -4,15 +4,14 @@ import ch.bbt.uek223.ticketshop.DataDTOUtil;
 import ch.bbt.uek223.ticketshop.DataUtil;
 import ch.bbt.uek223.ticketshop.event.*;
 import ch.bbt.uek223.ticketshop.event.dto.EventDto;
+import ch.bbt.uek223.ticketshop.ticket.TickerMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.TransientPropertyValueException;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -33,6 +32,9 @@ import static org.mockito.ArgumentMatchers.eq;
 
     @Mock
     private EventRepository eventRepository;
+
+   @Spy
+   private EventMapper eventMapper;
 
     @Test
     @Order(3)
