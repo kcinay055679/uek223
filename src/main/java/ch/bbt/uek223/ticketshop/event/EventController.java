@@ -22,22 +22,22 @@ public class EventController {
         return ResponseEntity.ok(eventService.findAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getEvent(@PathVariable int id) {
+    public ResponseEntity<?> getById(@PathVariable int id) {
         return ResponseEntity.ok(eventService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> createEvent(@Valid @RequestBody EventDto eventDto) {
+    public ResponseEntity<?> create(@Valid @RequestBody EventDto eventDto) {
         return new ResponseEntity<>(eventService.create(eventDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateEvent(@Valid @RequestBody EventDto eventDto, @PathVariable int id) {
+    public ResponseEntity<?> update(@Valid @RequestBody EventDto eventDto, @PathVariable int id) {
         return ResponseEntity.ok(eventService.update(eventDto,id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEvent(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         eventService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

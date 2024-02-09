@@ -1,11 +1,12 @@
 package ch.bbt.uek223.ticketshop.person;
 
 import ch.bbt.uek223.ticketshop.event.Event;
+import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonRequestDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonResponseDto;
 import ch.bbt.uek223.ticketshop.role.RoleService;
-import ch.bbt.uek223.ticketshop.security.AuthRequestDTO;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,7 @@ public class PersonService {
         return personMapper.toDto(personRepository.findById(i).orElseThrow(EntityNotFoundException::new));
     }
 
-    public PersonResponseDto create(AuthRequestDTO testAuthRequestDto) {
+    public PersonResponseDto create(@Valid EventDto testAuthRequestDto) {
         Person person = new Person();
         person.setPassword(passwordEncoder.encode(testAuthRequestDto.getPassword()));
         person.setEmail(testAuthRequestDto.getEmail());
