@@ -2,6 +2,7 @@ package ch.bbt.uek223.ticketshop;
 
 
 
+import ch.bbt.uek223.ticketshop.role.Role;
 import ch.bbt.uek223.ticketshop.event.Event;
 import ch.bbt.uek223.ticketshop.person.Person;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
@@ -10,7 +11,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DataUtil {
     public static Person getTestPerson() {

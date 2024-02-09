@@ -1,6 +1,6 @@
 package ch.bbt.uek223.ticketshop.person;
 
-import ch.bbt.uek223.ticketshop.Role;
+import ch.bbt.uek223.ticketshop.role.Role;
 import ch.bbt.uek223.ticketshop.event.Event;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

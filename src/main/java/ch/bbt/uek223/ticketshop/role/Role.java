@@ -1,4 +1,4 @@
-package ch.bbt.uek223.ticketshop;
+package ch.bbt.uek223.ticketshop.role;
 
 
 import jakarta.persistence.*;
@@ -22,6 +22,9 @@ public class Role {
 
     @Column
     private String name;
+
+    @Column
+    private String password;
 
     @Override
     public final boolean equals(Object o) {
