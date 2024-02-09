@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class TicketDto implements Serializable {
     private Integer id;
-    private Integer amount;
+    private Integer amountToBuy;
     @Size(max = 255)
     private String description;
     @Size(max = 255)

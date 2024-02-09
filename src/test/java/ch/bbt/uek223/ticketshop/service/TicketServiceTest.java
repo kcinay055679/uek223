@@ -9,10 +9,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,27 +19,25 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 
 @Order(32)
 @ExtendWith(SpringExtension.class)
- class TicketServiceTest {
+class TicketServiceTest {
     @InjectMocks
     private TicketService ticketService;
 
     @Mock
     private TicketRepository ticketRepository;
 
-
+    @Spy
     private TickerMapper ticketMapper;
 
-    public TicketServiceTest(TickerMapper ticketMapper) {
-        this.ticketMapper = ticketMapper;
-    }
 
     @Test
     @Order(4)
-     void checkCreateTicket_whenValidTicket_thenReturnTicketDTO() {
+    void checkCreateTicket_whenValidTicket_thenReturnTicketDTO() {
         TicketDto expectedTicketDTO = DataDTOUtil.getTestTicketDTO();
         Ticket expectedTicket = DataUtil.getTestTicket();
 
@@ -52,13 +47,13 @@ import static org.mockito.ArgumentMatchers.*;
 
         assertEquals(expectedTicketDTO.getId(), actual.getId());
         assertEquals(expectedTicketDTO.getName(), actual.getName());
-        assertEquals(expectedTicketDTO.getAmount(), actual.getAmount());
+        assertEquals(expectedTicketDTO.getAmountToBuy(), actual.getAmountToBuy());
         assertEquals(expectedTicketDTO.getEventId(), actual.getEventId());
     }
 
     @Test
     @Order(4)
-     void checkCreateTicket_whenInvalidTicket_thenThrowConstraintViolation() {
+    void checkCreateTicket_whenInvalidTicket_thenThrowConstraintViolation() {
         TicketDto failingTicketDTO = DataDTOUtil.getTestTicketDTO();
         failingTicketDTO.setEventId(0);
 
@@ -69,7 +64,7 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(4)
-     void checkCreate_whenValidId_thenTicketDTOIsReturned() {
+    void checkCreate_whenValidId_thenTicketDTOIsReturned() {
         TicketDto expectedTicketDTO = DataDTOUtil.getTestTicketDTO();
         Ticket expectedTicket = DataUtil.getTestTicket();
 
@@ -79,17 +74,17 @@ import static org.mockito.ArgumentMatchers.*;
 
         assertEquals(expectedTicketDTO.getId(), actualTicketDTO.getId());
         assertEquals(expectedTicketDTO.getName(), actualTicketDTO.getName());
-        assertEquals(expectedTicketDTO.getAmount(), actualTicketDTO.getAmount());
+        assertEquals(expectedTicketDTO.getAmountToBuy(), actualTicketDTO.getAmountToBuy());
         assertEquals(expectedTicketDTO.getEventId(), actualTicketDTO.getEventId());
     }
 
     @Test
     @Order(3)
-     void checkFindById_whenValidId_thenTicketDTOIsReturned() {
+    void checkFindById_whenValidId_thenTicketDTOIsReturned() {
         Ticket expected = DataUtil.getTestTicket();
         TicketDto expectedTicketDTO = DataDTOUtil.getTestTicketDTO();
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We want eager loading here, use findById here"));
 
         Mockito.when(ticketRepository.findById(1)).thenReturn(Optional.of(expected));
@@ -98,15 +93,15 @@ import static org.mockito.ArgumentMatchers.*;
 
         assertEquals(expectedTicketDTO.getId(), actualTicketDTO.getId());
         assertEquals(expectedTicketDTO.getName(), actualTicketDTO.getName());
-        assertEquals(expectedTicketDTO.getAmount(), actualTicketDTO.getAmount());
+        assertEquals(expectedTicketDTO.getAmountToBuy(), actualTicketDTO.getAmountToBuy());
         assertEquals(expectedTicketDTO.getEventId(), actualTicketDTO.getEventId());
     }
 
     @Test
     @Order(3)
-     void checkFindById_whenInvalidId_thenThrowsEntityNotFound() {
+    void checkFindById_whenInvalidId_thenThrowsEntityNotFound() {
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We want eager loading here, use findById here"));
 
         Mockito.when(ticketRepository.findById(0)).thenThrow(EntityNotFoundException.class);
@@ -116,7 +111,7 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(1)
-     void checkFindAll_whenExistingTickets_thenTicketDTOListIsReturned() {
+    void checkFindAll_whenExistingTickets_thenTicketDTOListIsReturned() {
         List<TicketDto> expectedTicketDTOs = DataDTOUtil.getTestTicketDTOs();
 
         List<Ticket> expectedTickets = DataUtil.getTestTickets();
@@ -133,14 +128,14 @@ import static org.mockito.ArgumentMatchers.*;
 
             assertEquals(expectedTicketDTO.getId(), actualTicketDTO.getId());
             assertEquals(expectedTicketDTO.getName(), actualTicketDTO.getName());
-            assertEquals(expectedTicketDTO.getAmount(), actualTicketDTO.getAmount());
+            assertEquals(expectedTicketDTO.getAmountToBuy(), actualTicketDTO.getAmountToBuy());
             assertEquals(expectedTicketDTO.getEventId(), actualTicketDTO.getEventId());
         }
     }
 
     @Test
     @Order(5)
-     void checkUpdate_whenValidIdAndTicketDTO_thenReturnTicketDTO() {
+    void checkUpdate_whenValidIdAndTicketDTO_thenReturnTicketDTO() {
         String newName = "NewTicketName";
 
         TicketDto changingTicketDTO = DataDTOUtil.getTestTicketDTO();
@@ -154,7 +149,7 @@ import static org.mockito.ArgumentMatchers.*;
         TicketDto expectedTicketDTO = DataDTOUtil.getTestTicketDTO();
         expectedTicketDTO.setName(newName);
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
 
@@ -164,18 +159,18 @@ import static org.mockito.ArgumentMatchers.*;
         TicketDto actual = ticketService.update(changingTicketDTO, 1);
 
         assertEquals(expectedTicketDTO.getName(), actual.getName());
-        assertEquals(expectedTicketDTO.getAmount(), actual.getAmount());
+        assertEquals(expectedTicketDTO.getAmountToBuy(), actual.getAmountToBuy());
     }
 
     @Test
     @Order(5)
-     void checkUpdate_whenInvalidAmount_thenDataIntegrityViolation() {
+    void checkUpdate_whenInvalidAmount_thenDataIntegrityViolation() {
         TicketDto changingTicketDTO = DataDTOUtil.getTestTicketDTO();
-        changingTicketDTO.setAmount(-10);
+        changingTicketDTO.setAmountToBuy(-10);
 
         Ticket unchangedTicket = DataUtil.getTestTicket();
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
 
@@ -186,15 +181,17 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(5)
-     void checkUpdate_whenInvalidEventId_thenConstraintViolation() {
+    void checkUpdate_whenInvalidEventId_thenConstraintViolation() {
         TicketDto failingTicketDTO = DataDTOUtil.getTestTicketDTO();
         failingTicketDTO.setEventId(0);
+        Ticket entity = ticketMapper.toEntity(failingTicketDTO);
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
+        Mockito.doCallRealMethod().when(ticketMapper).toEntity(any());
 
-        Mockito.when(ticketRepository.findByIdForUpdate(failingTicketDTO.getId())).thenReturn(ticketMapper.toEntity(failingTicketDTO));
+        Mockito.when(ticketRepository.findByIdForUpdate(failingTicketDTO.getId())).thenReturn(entity);
         Mockito.when(ticketRepository.save(argThat(argument -> argument.getEvent().getId() == 0))).thenThrow(ConstraintViolationException.class);
 
         assertThrows(ConstraintViolationException.class, () -> ticketService.update(failingTicketDTO, 1));
@@ -202,12 +199,12 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(5)
-     void checkUpdate_whenTicketNotExists_throwEntityNotFoundException() {
+    void checkUpdate_whenTicketNotExists_throwEntityNotFoundException() {
         Integer notExistingId = 0;
         TicketDto changingTicket = DataDTOUtil.getTestTicketDTO();
         changingTicket.setId(notExistingId);
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
 
@@ -218,11 +215,11 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(7)
-     void checkBuy_whenValidTicketDTOList_thenReturnTicketDTOList() {
+    void checkBuy_whenValidTicketDTOList_thenReturnTicketDTOList() {
         List<TicketDto> changingTicketDTOs = DataDTOUtil.getTestTicketDTOs();
 
         List<TicketDto> expectedTicketDTOs = DataDTOUtil.getTestTicketDTOs();
-        expectedTicketDTOs.forEach(TicketDto -> TicketDto.setAmount(0));
+        expectedTicketDTOs.forEach(TicketDto -> TicketDto.setAmountToBuy(0));
 
         List<Ticket> unchangedTickets = DataUtil.getTestTickets();
 
@@ -231,7 +228,7 @@ import static org.mockito.ArgumentMatchers.*;
             ticket.setAmount(0);
         });
 
-        Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
+        Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
         Mockito.when(ticketRepository.findById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
         Mockito.when(ticketRepository.getReferenceById(any())).thenThrow(new AssertionError("We need locking, use findByIdForUpdate here"));
 
@@ -245,16 +242,16 @@ import static org.mockito.ArgumentMatchers.*;
         for (int i = 0; i < actualTicketDTOs.size(); i++) {
             TicketDto expected = expectedTicketDTOs.get(i);
             TicketDto actual = actualTicketDTOs.get(i);
-            assertEquals(expected.getAmount(), actual.getAmount());
+            assertEquals(expected.getAmountToBuy(), actual.getAmountToBuy());
         }
     }
 
     @Test
     @Order(7)
-     void checkBuy_whenBuyingTooMuch_thenThrowDataIntegrityViolation() {
+    void checkBuy_whenBuyingTooMuch_thenThrowDataIntegrityViolation() {
         List<TicketDto> changingTicketDTOs = DataDTOUtil.getTestTicketDTOs();
         changingTicketDTOs.forEach(TicketDto -> {
-            TicketDto.setAmount(100);
+            TicketDto.setAmountToBuy(100);
         });
 
         Mockito.when(ticketRepository.getById(any())).thenThrow(new AssertionError("getById is deprecated and should not be used"));
@@ -269,7 +266,7 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(7)
-     void checkBuy_whenNotExistingTickets_thenThrowEntityNotFoundException() {
+    void checkBuy_whenNotExistingTickets_thenThrowEntityNotFoundException() {
         List<TicketDto> changingTickets = DataDTOUtil.getTestTicketDTOs();
         List<Ticket> unchangedTickets = DataUtil.getTestTickets();
         unchangedTickets.remove(2);
@@ -281,15 +278,15 @@ import static org.mockito.ArgumentMatchers.*;
 
     @Test
     @Order(6)
-     void checkDeleteById_whenInvalidId_thenEmptyResultDataAccess() {
-        Mockito.doThrow(EmptyResultDataAccessException.class).when(ticketRepository).deleteById(eq(0));
+    void checkDeleteById_whenInvalidId_thenEmptyResultDataAccess() {
+        Mockito.doThrow(EmptyResultDataAccessException.class).when(ticketRepository).deleteById(0);
 
         assertThrows(EmptyResultDataAccessException.class, () -> ticketService.deleteById(0));
     }
 
     @Test
     @Order(2)
-     void checkFindAllUnsold_whenTicketsExist_thenReturnTicketDTOList() {
+    void checkFindAllUnsold_whenTicketsExist_thenReturnTicketDTOList() {
         List<TicketDto> expectedTicketDTOs = DataDTOUtil.getTestTicketDTOs();
 
         List<Ticket> expectedTickets = DataUtil.getTestTickets();
@@ -310,7 +307,7 @@ import static org.mockito.ArgumentMatchers.*;
 
             assertEquals(expected.getId(), actual.getId());
             assertEquals(expected.getName(), actual.getName());
-            assertEquals(expected.getAmount(), actual.getAmount());
+            assertEquals(expected.getAmountToBuy(), actual.getAmountToBuy());
             assertEquals(expected.getEventId(), actual.getEventId());
         }
     }
