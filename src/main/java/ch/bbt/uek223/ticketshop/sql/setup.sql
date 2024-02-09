@@ -3,9 +3,9 @@ INSERT into role (name) VALUES ('MANAGER');
 INSERT into role (name) VALUES ('USER');
 
 -- passwort is uer
-insert into person (email, password) values ('admin@admin.com', '$2a$10$CYJEjGAgzuHLdIX85.dN2uNORL084WgUZ3mC75.eBhuE.kGmN3j9i');
-insert into person (email, password) values ('manager@manager.com', '$2a$10$CYJEjGAgzuHLdIX85.dN2uNORL084WgUZ3mC75.eBhuE.kGmN3j9i');
-insert into person (email, password) values ('user@user.com', '$2a$10$CYJEjGAgzuHLdIX85.dN2uNORL084WgUZ3mC75.eBhuE.kGmN3j9i');
+insert into person (email, password) values ('admin@admin.com', '$2a$10$E5hT6bN2/YGVOA/2R227R.fr8lgMsIZ9THOJbYWtb8lrE3yQ3ds4G');
+insert into person (email, password) values ('manager@manager.com', '$2a$10$E5hT6bN2/YGVOA/2R227R.fr8lgMsIZ9THOJbYWtb8lrE3yQ3ds4G');
+insert into person (email, password) values ('user@user.com', '$2a$10$E5hT6bN2/YGVOA/2R227R.fr8lgMsIZ9THOJbYWtb8lrE3yQ3ds4G');
 
 INSERT into person_role (person_id, role_id) VALUES (1, 1);
 INSERT into person_role (person_id, role_id) VALUES (2, 2);

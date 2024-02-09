@@ -5,12 +5,11 @@ import ch.bbt.uek223.ticketshop.ticket.TicketController;
 import ch.bbt.uek223.ticketshop.ticket.TicketService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -18,9 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = TicketController.class)
-@AutoConfigureMockMvc
-@Import(SecurityConfiguration.class)
-@WithMockUser(authorities = "NOT_THE_NEEDED_ONES")
+@ContextConfiguration
 public class TicketControllerSecurityTest {
     @Autowired
     private MockMvc mockMvc;
@@ -54,7 +51,7 @@ public class TicketControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "SCOPE_ADMIN")
+    @WithMockUser(roles = "ADMIN")
     public void checkPatch_whenAuthorized_thenIsOk() throws Exception {
         mockMvc.perform(patch(TicketController.PATH + "/" + 1)
                         .contentType("application/json")

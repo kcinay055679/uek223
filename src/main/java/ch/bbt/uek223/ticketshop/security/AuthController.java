@@ -58,7 +58,6 @@ public class AuthController {
                     .subject(userName)
                     .claim("scope", authorities.stream().map(GrantedAuthority.class::cast).map(GrantedAuthority::getAuthority).collect(Collectors.joining(" ")))
                     .expirationTime(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-
                     .build();
 
             SignedJWT jwt = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);

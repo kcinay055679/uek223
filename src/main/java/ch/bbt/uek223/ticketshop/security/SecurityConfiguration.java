@@ -48,7 +48,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain customFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(e -> e.requestMatchers(HttpMethod.GET, "/").permitAll()
+                .authorizeHttpRequests(e -> e
                 .requestMatchers(HttpMethod.POST, AuthController.PATH + "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityConstants.API_DOCUMENTATION_URLS).permitAll()
                 .requestMatchers(HttpMethod.GET, EventController.PATH + "/**").permitAll()
