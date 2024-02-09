@@ -8,7 +8,6 @@ import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class EventService extends Validator<Event> {
         Event existingEvent = eventRepository.findById(i).orElseThrow(EntityNotFoundException::new);
         existingEvent.setName(expectedEventDTO.getName());
         existingEvent.setDescription(expectedEventDTO.getDescription());
-        existingEvent.setDate(new Date(expectedEventDTO.getDate().getTime()));
+        existingEvent.setDate(expectedEventDTO.getDate());
         existingEvent.setTickets(expectedEventDTO.getTicketIds().stream().map(id -> new Ticket().setId(id)).toList());
         return eventMapper.toDto(eventRepository.save(existingEvent));
     }

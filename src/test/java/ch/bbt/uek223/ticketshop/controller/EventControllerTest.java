@@ -134,7 +134,6 @@ class EventControllerTest {
 
     @Test
     @Order(3)
-    @Disabled
     void checkPost_whenInvalidEvent_thenIsBadRequest() throws Exception {
         Mockito.when(eventService.create(any(EventDto.class))).thenThrow(ConstraintViolationException.class);
 
@@ -155,7 +154,6 @@ class EventControllerTest {
 
     @Test
     @Order(3)
-    @Disabled
     void checkPost_whenInvalidOwnerId_thenIsConflict() throws Exception {
         Mockito.when(eventService.create(any(EventDto.class))).thenThrow(ConstraintViolationException.class);
 
