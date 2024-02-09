@@ -3,9 +3,12 @@ package ch.bbt.uek223.ticketshop.event;
 
 import ch.bbt.uek223.ticketshop.Validator;
 import ch.bbt.uek223.ticketshop.event.dto.EventDto;
+import ch.bbt.uek223.ticketshop.person.Person;
+import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -26,11 +29,10 @@ public class EventService extends Validator<Event> {
 
     public EventDto update(EventDto expectedEventDTO, int i) {
         Event existingEvent = eventRepository.findById(i).orElseThrow(EntityNotFoundException::new);
-        Event changingEvents = eventMapper.toEntity(expectedEventDTO);
-        existingEvent.setName(changingEvents.getName());
-        existingEvent.setDescription(changingEvents.getDescription());
-        existingEvent.setDate(changingEvents.getDate());
-        existingEvent.setTickets(changingEvents.getTickets());
+        existingEvent.setName(expectedEventDTO.getName());
+        existingEvent.setDescription(expectedEventDTO.getDescription());
+        existingEvent.setDate(new Date(expectedEventDTO.getDate().getTime()));
+        existingEvent.setTickets(expectedEventDTO.getTicketIds().stream().map(id -> new Ticket().setId(id)).toList());
         return eventMapper.toDto(eventRepository.save(existingEvent));
     }
 
@@ -41,6 +43,8 @@ public class EventService extends Validator<Event> {
     public EventDto findById(int i) {
         return eventMapper.toDto(eventRepository.findById(i).orElseThrow(EntityNotFoundException::new));
     }
+
+
 
     public void deleteById(int i) {
         eventRepository.deleteById(i);

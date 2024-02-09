@@ -5,6 +5,9 @@ import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.time.ZoneId;
+
 
 @Component
 public class EventMapper implements Mapper<Event, EventDto> {
@@ -13,6 +16,6 @@ public class EventMapper implements Mapper<Event, EventDto> {
     }
 
     public Event toEntity(EventDto eventDto) {
-        return new Event().setId(eventDto.getId()).setDescription(eventDto.getDescription()).setName(eventDto.getName()).setDate(eventDto.getDate()).setTickets(eventDto.getTicketIds().stream().map(id -> new Ticket().setId(id)).toList());
+        return new Event().setId(eventDto.getId()).setDescription(eventDto.getDescription()).setName(eventDto.getName()).setDate(Date.valueOf(eventDto.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())).setTickets(eventDto.getTicketIds().stream().map(id -> new Ticket().setId(id)).toList());
     }
 }

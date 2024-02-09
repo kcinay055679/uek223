@@ -3,6 +3,7 @@ package ch.bbt.uek223.ticketshop.event;
 import ch.bbt.uek223.ticketshop.person.Person;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -30,6 +31,7 @@ public class Event {
 
     @Column(nullable = false)
     @Size(max = 255)
+    @NotBlank
     private String name;
 
     @ManyToOne
