@@ -4,6 +4,7 @@ import ch.bbt.uek223.ticketshop.ticket.dto.TicketDto;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +63,7 @@ public class TicketService {
     // ...
 
     // Lade das passende Ticket aus der Datenbank, rufe die Methode mergeTicket auf und speichere das Ticket anschliessend wieder.
+    @Transactional
     public TicketDto update(TicketDto ticketDTO) {
         Ticket changingTicket = ticketMapper.toEntity(ticketDTO);
         Ticket existingTicket = findEntityById(ticketDTO.getId());
@@ -69,6 +71,7 @@ public class TicketService {
         return ticketMapper.toDto(ticketRepository.save(existingTicket));
     }
 
+    @Transactional
     public List<TicketDto> buy(List<TicketDto> ticketDTOs) {
         List<Integer> ticketIds = ticketDTOs.stream().map(TicketDto::getId).toList();
         List <Ticket> existingTickets = ticketRepository.findAllByIdForUpdate(ticketIds);

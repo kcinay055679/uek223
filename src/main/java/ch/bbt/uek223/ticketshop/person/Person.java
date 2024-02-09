@@ -32,11 +32,11 @@ public class Person {
     @ToString.Exclude
     private Set<Event> events;
 
-    @ManyToMany
     @JoinTable(
             name = "person_role",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany
     private List<Role> assignedRoles;
 
     @Override

@@ -1,16 +1,18 @@
 package ch.bbt.uek223.ticketshop.person;
 
 import ch.bbt.uek223.ticketshop.event.Event;
-import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonRequestDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonResponseDto;
 import ch.bbt.uek223.ticketshop.role.RoleService;
+import ch.bbt.uek223.ticketshop.security.AuthRequestDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,12 +21,13 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
-    public PersonService(PersonRepository personRepository, PersonMapper personMapper, RoleService roleService) {
+    public PersonService(PersonRepository personRepository, PersonMapper personMapper, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean existsByEmail(String mail) {
@@ -47,10 +50,11 @@ public class PersonService {
         return personMapper.toDto(personRepository.findById(i).orElseThrow(EntityNotFoundException::new));
     }
 
-    public PersonResponseDto create(@Valid EventDto testAuthRequestDto) {
+    public PersonResponseDto create(@Valid AuthRequestDTO testAuthRequestDto) {
         Person person = new Person();
-        person.setPassword(passwordEncoder.encode(testAuthRequestDto.getPassword()));
         person.setEmail(testAuthRequestDto.getEmail());
+        person.setPassword(passwordEncoder.encode(testAuthRequestDto.getPassword()));
+        person.setEvents(new HashSet<>());
         return personMapper.toDto(personRepository.save(person));
     }
 }

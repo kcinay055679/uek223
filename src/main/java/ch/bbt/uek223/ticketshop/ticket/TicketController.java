@@ -9,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(TicketController.PATH)
 
 public class TicketController {
-    public static final String PATH = "/ticket";
+    public static final String PATH = "/tickets";
 private final TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
@@ -37,6 +39,11 @@ private final TicketService ticketService;
     @PatchMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody TicketDto dto, @PathVariable int id) {
         return ResponseEntity.ok(ticketService.update(dto,id));
+    }
+
+    @PostMapping("/buy")
+    public ResponseEntity<?> buy(@Valid @RequestBody List<TicketDto> dtos) {
+        return ResponseEntity.ok(ticketService.buy(dtos));
     }
 
     @DeleteMapping("/{id}")

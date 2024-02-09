@@ -1,6 +1,7 @@
 package ch.bbt.uek223.ticketshop.event;
 
 import ch.bbt.uek223.ticketshop.event.dto.EventDto;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,12 @@ public class EventController {
     }
 
     @GetMapping
+    @PermitAll
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(eventService.findAll());
     }
     @GetMapping("/{id}")
+    @PermitAll
     public ResponseEntity<?> getById(@PathVariable int id) {
         return ResponseEntity.ok(eventService.findById(id));
     }

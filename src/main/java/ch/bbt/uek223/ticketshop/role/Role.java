@@ -1,12 +1,14 @@
 package ch.bbt.uek223.ticketshop.role;
 
 
+import ch.bbt.uek223.ticketshop.person.Person;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,8 +25,12 @@ public class Role {
     @Column
     private String name;
 
-    @Column
-    private String password;
+    @JoinTable(
+            name = "person_role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id"))
+    @OneToMany
+    private Set<Person> assignedPersons;
 
     @Override
     public final boolean equals(Object o) {
