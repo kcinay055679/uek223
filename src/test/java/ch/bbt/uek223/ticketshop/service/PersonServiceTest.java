@@ -81,7 +81,6 @@ public class PersonServiceTest {
 
     @Test
     @Order(4)
-    @Disabled
     void checkCreate_whenValidPersonSignUpDTO_thenReturnPersonDTO() {
         Person expectedPerson = DataUtil.getTestPerson();
         PersonResponseDto expectedDTO = DataDTOUtil.getTestPersonResponseDTO();
@@ -105,7 +104,6 @@ public class PersonServiceTest {
 
     @Test
     @Order(4)
-     @Disabled
     void checkCreate_whenEmailAlreadyExisting_thenThrowConstraintViolation() {
         Mockito.when(roleService.findRoleByName(any())).thenReturn(new Role());
         Mockito.when(personRepository.save(any(Person.class))).thenThrow(ConstraintViolationException.class);
@@ -114,8 +112,6 @@ public class PersonServiceTest {
 
     @Test
     @Order(5)
-    @Disabled
-
     void checkUpdate_whenValidPersonDTO_thenChangedPersonDTOIsReturned() {
         String newEmail = "NewEmail@foo.bar";
         String newPassword = "NewPassword";
@@ -147,8 +143,6 @@ public class PersonServiceTest {
 
     @Test
     @Order(5)
-    @Disabled
-
     void checkUpdate_whenInvalidPersonId_thenThrowEntityNotFound() {
         PersonRequestDto testPersonRequestDTO = DataDTOUtil.getTestPersonRequestDTO();
 

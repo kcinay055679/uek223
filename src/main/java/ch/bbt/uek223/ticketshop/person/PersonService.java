@@ -1,5 +1,6 @@
 package ch.bbt.uek223.ticketshop.person;
 
+import ch.bbt.uek223.ticketshop.event.Event;
 import ch.bbt.uek223.ticketshop.person.dto.PersonRequestDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonResponseDto;
 import ch.bbt.uek223.ticketshop.role.RoleService;
@@ -8,6 +9,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -32,8 +35,11 @@ public class PersonService {
     }
 
     public PersonResponseDto update(PersonRequestDto testPersonRequestDTO, int i) {
-
-        return null;
+        Person person = personRepository.findById(i).orElseThrow(EntityNotFoundException::new);
+        person.setEmail(testPersonRequestDTO.getEmail());
+        person.setPassword(passwordEncoder.encode(testPersonRequestDTO.getPassword()));
+        person.setEvents(testPersonRequestDTO.getEventIds().stream().map(id -> new Event().setId(id)).collect(Collectors.toSet()));
+        return personMapper.toDto(personRepository.save(person));
     }
 
     public PersonResponseDto findById(int i) {
@@ -41,6 +47,9 @@ public class PersonService {
     }
 
     public PersonResponseDto create(AuthRequestDTO testAuthRequestDto) {
-        return null;
+        Person person = new Person();
+        person.setPassword(passwordEncoder.encode(testAuthRequestDto.getPassword()));
+        person.setEmail(testAuthRequestDto.getEmail());
+        return personMapper.toDto(personRepository.save(person));
     }
 }

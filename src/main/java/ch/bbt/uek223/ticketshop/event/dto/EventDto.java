@@ -33,7 +33,6 @@ public class EventDto implements Serializable {
     @NotBlank
     private String name;
     @NotNull
-    @NotNull
     private Integer ownerId;
     private List<Integer> ticketIds;
 }
