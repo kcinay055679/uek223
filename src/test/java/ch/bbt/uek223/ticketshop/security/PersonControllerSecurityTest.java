@@ -55,14 +55,14 @@ public class PersonControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "ADMIN")
+    @WithMockUser(authorities = SecurityConstants.ROLE_ADMIN)
     public void checkPut_whenAuthorized_thenIsOK() throws Exception {
         mockMvc.perform(put(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(authorities = "ADMIN")
+    @WithMockUser(authorities = SecurityConstants.ROLE_ADMIN)
     public void checkDelete_whenAuthorized_thenIsNoContent() throws Exception {
         mockMvc.perform(delete(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isNoContent());

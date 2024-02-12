@@ -82,7 +82,7 @@ public class EventControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "ADMIN")
+    @WithMockUser(authorities = SecurityConstants.ROLE_ADMIN)
     public void checkPatch_whenAuthorized_thenIsOK() throws Exception {
         mockMvc.perform(patch(EventController.PATH + "/" + 1)
                         .contentType("application/json")
@@ -107,7 +107,7 @@ public class EventControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "ADMIN")
+    @WithMockUser(authorities = SecurityConstants.ROLE_ADMIN)
     public void checkDelete_whenAuthorized_thenIsNoContent() throws Exception {
         mockMvc.perform(delete(EventController.PATH + "/" + 1))
                 .andExpect(status().isNoContent());

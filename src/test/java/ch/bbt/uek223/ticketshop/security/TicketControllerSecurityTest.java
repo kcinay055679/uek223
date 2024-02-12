@@ -60,7 +60,7 @@ public class TicketControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "ADMIN")
+    @WithMockUser(authorities = SecurityConstants.ROLE_ADMIN)
     public void checkPatch_whenAuthorized_thenIsOk() throws Exception {
         mockMvc.perform(patch(TicketController.PATH + "/" + 1)
                         .contentType("application/json")
@@ -69,7 +69,7 @@ public class TicketControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "ADMIN")
+    @WithMockUser(authorities = SecurityConstants.ROLE_ADMIN)
     public void checkPost_whenAuthorized_thenIsOk() throws Exception {
         mockMvc.perform(post(TicketController.PATH)
                         .contentType("application/json")
