@@ -52,6 +52,8 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, AuthController.PATH + "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityConstants.API_DOCUMENTATION_URLS).permitAll()
                 .requestMatchers(HttpMethod.GET, EventController.PATH + "/**").permitAll()
+                .requestMatchers(HttpMethod.POST, EventController.PATH + "/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, EventController.PATH + "/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(e-> e.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

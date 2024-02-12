@@ -57,4 +57,14 @@ public class PersonService {
         person.setEvents(new HashSet<>());
         return personMapper.toDto(personRepository.save(person));
     }
+
+    public void removeRole(int eq, String s) {
+
+
+    }
+
+    public Object assignRole(int eq, String s)
+    {
+        return null;
+    }
 }

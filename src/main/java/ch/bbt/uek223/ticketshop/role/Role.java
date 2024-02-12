@@ -29,7 +29,7 @@ public class Role {
             name = "person_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id"))
-    @OneToMany
+    @ManyToMany
     private Set<Person> assignedPersons;
 
     @Override
