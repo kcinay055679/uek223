@@ -2,6 +2,7 @@ package ch.bbt.uek223.ticketshop.mapper;
 
 
 import ch.bbt.uek223.ticketshop.event.Event;
+import ch.bbt.uek223.ticketshop.event.dto.EventDto;
 import ch.bbt.uek223.ticketshop.person.Person;
 import ch.bbt.uek223.ticketshop.person.PersonMapper;
 import ch.bbt.uek223.ticketshop.person.dto.PersonRequestDto;
@@ -27,14 +28,16 @@ class PersonMapperTest {
         // Given
         PersonRequestDto personRequestDTO = new PersonRequestDto();
         personRequestDTO.setPassword("testPassword");
-        personRequestDTO.setEventIds(new ArrayList<>());
-        personRequestDTO.setEmail("");
+        personRequestDTO.setEventIds(List.of(1, 2));
+        personRequestDTO.setEmail("test@test.ch");
 
         // When
         Person person = personMapper.toEntity(personRequestDTO);
 
         // Then
         assertEquals(personRequestDTO.getPassword(), person.getPassword());
+        assertEquals(personRequestDTO.getEmail(), person.getEmail());
+        assertEquals(personRequestDTO.getEventIds(), person.getEvents().stream().map(Event::getId).toList());
     }
 
     @Test

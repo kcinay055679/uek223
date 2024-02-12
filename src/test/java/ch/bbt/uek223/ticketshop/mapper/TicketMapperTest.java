@@ -61,6 +61,7 @@ class TicketMapperTest {
         assertEquals(ticketDTO.getName(), ticket.getName());
         assertEquals(ticketDTO.getDescription(), ticket.getDescription());
         assertEquals(ticketDTO.getAmountToBuy(), ticket.getAmount());
+        assertEquals(ticketDTO.getEventId(), ticket.getEvent().getId());
     }
 }
 

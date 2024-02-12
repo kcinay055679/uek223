@@ -58,10 +58,12 @@ class EventMapperTest {
         Ticket ticket1 = new Ticket();
         ticket1.setId(1);
         tickets.add(ticket1);
+
         Ticket ticket2 = new Ticket();
         ticket2.setId(2);
         tickets.add(ticket2);
         event.setTickets(tickets);
+
         Person owner = new Person();
         owner.setId(1);
         event.setOwner(owner);

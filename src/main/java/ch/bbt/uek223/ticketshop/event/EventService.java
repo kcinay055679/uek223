@@ -3,7 +3,6 @@ package ch.bbt.uek223.ticketshop.event;
 
 import ch.bbt.uek223.ticketshop.Validator;
 import ch.bbt.uek223.ticketshop.event.dto.EventDto;
-import ch.bbt.uek223.ticketshop.person.Person;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,6 @@ public class EventService extends Validator<Event> {
     public EventDto findById(int i) {
         return eventMapper.toDto(eventRepository.findById(i).orElseThrow(EntityNotFoundException::new));
     }
-
 
 
     public void deleteById(int i) {
