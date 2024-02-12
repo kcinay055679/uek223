@@ -43,30 +43,26 @@ public class PersonControllerSecurityTest {
     private RoleService roleService;
 
     @Test
-    @Disabled
     public void checkPut_whenNotAuthorized_thenIsForbidden() throws Exception {
         mockMvc.perform(put(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    @Disabled
     public void checkDelete_whenNotAuthorized_thenIsForbidden() throws Exception {
         mockMvc.perform(delete(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    @Disabled
-    @WithMockUser(authorities = "SCOPE_ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void checkPut_whenAuthorized_thenIsOK() throws Exception {
         mockMvc.perform(put(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @Disabled
-    @WithMockUser(authorities = "SCOPE_ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void checkDelete_whenAuthorized_thenIsNoContent() throws Exception {
         mockMvc.perform(delete(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isNoContent());

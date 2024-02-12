@@ -14,12 +14,12 @@ import java.util.List;
 
 public class DataUtil {
     public static Person getTestPerson() {
-        return getTestPersons().get(0);
+        return getTestPersons().getFirst();
     }
 
     public static Person getTestPersonWithRole() {
         Person person = getTestPerson();
-//        person.getRoles().add(getTestRole());
+        person.getAssignedRoles().add(getTestRole());
         return person;
     }
 

@@ -109,14 +109,14 @@ class RoleTest {
 
     @Test
     public void assignedPersonsField_doesExist() {
-        assertDoesNotThrow(() -> Role.class.getDeclaredField("assignedPersons"));
+        assertDoesNotThrow(() -> Role.class.getDeclaredField("persons"));
     }
 
     @Test
     public void assignedPersonsFieldCardinality_isManyToMany() {
         try {
             assertNotNull(Role.class
-                    .getDeclaredField("assignedPersons")
+                    .getDeclaredField("persons")
                     .getDeclaredAnnotation(ManyToMany.class));
         } catch (NoSuchFieldException e) {
             fail();

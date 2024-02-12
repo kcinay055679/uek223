@@ -2,6 +2,7 @@ package ch.bbt.uek223.ticketshop.security;
 
 import ch.bbt.uek223.ticketshop.event.EventController;
 import ch.bbt.uek223.ticketshop.event.EventService;
+import ch.bbt.uek223.ticketshop.person.PersonController;
 import ch.bbt.uek223.ticketshop.role.RoleService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -11,9 +12,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = EventController.class)
 @AutoConfigureMockMvc
 @Import(SecurityConfiguration.class)
+@WithMockUser(authorities = "NOT_THE_NEEDED_ONES")
+@EnableWebMvc
+@EnableWebSecurity
 public class EventControllerSecurityTest {
     @Autowired
     private MockMvc mockMvc;
@@ -76,7 +82,7 @@ public class EventControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "SCOPE_ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void checkPatch_whenAuthorized_thenIsOK() throws Exception {
         mockMvc.perform(patch(EventController.PATH + "/" + 1)
                         .contentType("application/json")
@@ -101,7 +107,7 @@ public class EventControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "SCOPE_ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void checkDelete_whenAuthorized_thenIsNoContent() throws Exception {
         mockMvc.perform(delete(EventController.PATH + "/" + 1))
                 .andExpect(status().isNoContent());

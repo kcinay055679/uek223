@@ -45,6 +45,6 @@ public class PersonRoleServiceTest {
         Mockito.verify(personRepository).save(argumentCaptorPerson.capture());
         Person verify = argumentCaptorPerson.getValue();
 
-        Assertions.assertEquals(0, verify.getRoles().size(), "Sizes did not match");
+        Assertions.assertEquals(0, verify.getAssignedRoles().size(), "Sizes did not match");
     }
 }

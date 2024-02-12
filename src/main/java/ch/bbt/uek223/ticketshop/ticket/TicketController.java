@@ -13,7 +13,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping(TicketController.PATH)
-@RolesAllowed({SecurityConstants.ROLE_USER})
 public class TicketController {
     public static final String PATH = "/tickets";
     private final TicketService ticketService;
@@ -33,13 +32,11 @@ public class TicketController {
     }
 
     @PostMapping
-    @RolesAllowed({SecurityConstants.ROLE_MANAGER, SecurityConstants.ROLE_ADMIN})
     public ResponseEntity<?> create(@Valid @RequestBody TicketDto dto) {
         return new ResponseEntity<>(ticketService.create(dto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    @RolesAllowed({SecurityConstants.ROLE_MANAGER, SecurityConstants.ROLE_ADMIN})
     public ResponseEntity<?> update(@Valid @RequestBody TicketDto dto, @PathVariable int id) {
         return ResponseEntity.ok(ticketService.update(dto, id));
     }
@@ -50,7 +47,6 @@ public class TicketController {
     }
 
     @DeleteMapping("/{id}")
-    @RolesAllowed({SecurityConstants.ROLE_MANAGER, SecurityConstants.ROLE_ADMIN})
     public ResponseEntity<?> delete(@PathVariable int id) {
         ticketService.deleteById(id);
         return ResponseEntity.noContent().build();

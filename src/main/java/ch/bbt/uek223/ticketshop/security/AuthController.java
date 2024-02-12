@@ -31,8 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -105,9 +104,10 @@ public class AuthController {
     public ResponseEntity<?> signIn(@RequestBody AuthRequestDTO authenticationDTO) {
 
         try {
+            List<GrantedAuthority> rolesByUserEmail = personService.getRolesByUserEmail(authenticationDTO.getEmail());
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(
-                            authenticationDTO.getEmail(), authenticationDTO.getPassword());
+                            authenticationDTO.getEmail(), authenticationDTO.getPassword(), rolesByUserEmail);
 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
 

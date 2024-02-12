@@ -21,8 +21,24 @@ public class PersonController {
     }
 
     @PatchMapping("/{id}")
-    @RolesAllowed({SecurityConstants.ROLE_USER})
     public ResponseEntity<?> update(@Valid @RequestBody PersonRequestDto dto, @PathVariable int id) {
         return ResponseEntity.ok(personService.update(dto, id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete( @PathVariable int id) {
+        personService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/role/{role}")
+    public ResponseEntity<?> assignRole(@PathVariable int id, @PathVariable String role) {
+        return ResponseEntity.ok(personService.assignRole(id, role));
+    }
+
+    @DeleteMapping("/{id}/role/{role}")
+    public ResponseEntity<?> removeRole(@PathVariable int id, @PathVariable String role) {
+        personService.removeRole(id, role);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,9 +1,7 @@
 package ch.bbt.uek223.ticketshop.service;
 
-import ch.bbcag.backend.ticketshop.role.Role;
-import ch.bbcag.backend.ticketshop.role.RoleRepository;
-import ch.bbcag.backend.ticketshop.role.RoleService;
-import ch.bbcag.backend.ticketshop.util.DataUtil;
+import ch.bbt.uek223.ticketshop.DataUtil;
+import ch.bbt.uek223.ticketshop.role.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,7 +32,7 @@ public class RoleServiceTest {
         expectedRole.setName("ADMIN");
         expectedRoleList.add(expectedRole);
 
-        Mockito.when(roleRepository.getRolesByUserEmail(anyString())).thenReturn(expectedRoleList);
+        Mockito.when(roleRepository.getRolesByemail(anyString())).thenReturn(expectedRoleList);
 
         assertSame(expectedRoleList, roleService.getRolesByUserEmail("person1@foo.bar"));
     }

@@ -1,23 +1,32 @@
 package ch.bbt.uek223.ticketshop.security;
 
+import ch.bbt.uek223.ticketshop.person.PersonController;
 import ch.bbt.uek223.ticketshop.role.RoleService;
 import ch.bbt.uek223.ticketshop.ticket.TicketController;
 import ch.bbt.uek223.ticketshop.ticket.TicketService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = TicketController.class)
-@ContextConfiguration
+@AutoConfigureMockMvc
+@Import(SecurityConfiguration.class)
+@WithMockUser(authorities = "NOT_THE_NEEDED_ONES")
+@EnableWebMvc
+@EnableWebSecurity
 public class TicketControllerSecurityTest {
     @Autowired
     private MockMvc mockMvc;
@@ -51,7 +60,7 @@ public class TicketControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void checkPatch_whenAuthorized_thenIsOk() throws Exception {
         mockMvc.perform(patch(TicketController.PATH + "/" + 1)
                         .contentType("application/json")
@@ -60,7 +69,7 @@ public class TicketControllerSecurityTest {
     }
 
     @Test
-    @WithMockUser(authorities = "SCOPE_ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void checkPost_whenAuthorized_thenIsOk() throws Exception {
         mockMvc.perform(post(TicketController.PATH)
                         .contentType("application/json")

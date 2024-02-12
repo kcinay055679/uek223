@@ -7,8 +7,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -22,7 +21,7 @@ public class Role {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private String name;
 
     @JoinTable(
@@ -30,7 +29,8 @@ public class Role {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id"))
     @ManyToMany
-    private Set<Person> assignedPersons;
+    @ToString.Exclude
+    private Set<Person> persons = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {

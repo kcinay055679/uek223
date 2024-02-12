@@ -1,6 +1,8 @@
 package ch.bbt.uek223.ticketshop.security;
 
 import ch.bbt.uek223.ticketshop.event.EventController;
+import ch.bbt.uek223.ticketshop.person.PersonController;
+import ch.bbt.uek223.ticketshop.ticket.TicketController;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
@@ -51,10 +53,19 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(e -> e
                 .requestMatchers(HttpMethod.POST, AuthController.PATH + "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityConstants.API_DOCUMENTATION_URLS).permitAll()
-                .requestMatchers(HttpMethod.GET, EventController.PATH + "/**").permitAll()
-                .requestMatchers(HttpMethod.POST, EventController.PATH + "/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, EventController.PATH + "/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated())
+                        .requestMatchers(HttpMethod.PATCH,EventController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                        .requestMatchers(HttpMethod.DELETE,EventController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                        .requestMatchers(HttpMethod.POST,EventController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+
+                        .requestMatchers(HttpMethod.PATCH,TicketController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                        .requestMatchers(HttpMethod.POST,TicketController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+
+                                .requestMatchers(HttpMethod.GET, EventController.PATH + "/**").permitAll()
+
+
+                        .requestMatchers(PersonController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                        .anyRequest().authenticated()
+                        )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(e-> e.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();

@@ -4,6 +4,7 @@ import ch.bbt.uek223.ticketshop.DataDTOUtil;
 import ch.bbt.uek223.ticketshop.person.PersonController;
 import ch.bbt.uek223.ticketshop.person.PersonService;
 import ch.bbt.uek223.ticketshop.person.dto.PersonResponseDto;
+import ch.bbt.uek223.ticketshop.security.AuthController;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 
@@ -24,8 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = PersonController.class)
+@EnableWebMvc
 @AutoConfigureMockMvc(addFilters = false)
-public class PersonRoleControllerTest {
+ class PersonRoleControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -33,7 +36,7 @@ public class PersonRoleControllerTest {
     private PersonService personService;
 
     @Test
-    public void checkPut_whenValidIdAndValidRole_thenIsOkAndPersonDTOIsReturned() throws Exception {
+     void checkPut_whenValidIdAndValidRole_thenIsOkAndPersonDTOIsReturned() throws Exception {
         PersonResponseDto expectedPersonResponseDTO = DataDTOUtil.getTestPersonResponseDTO();
 
         Mockito.when(personService.assignRole(eq(1), anyString())).thenReturn(List.of("USER", "ADMIN"));
@@ -44,7 +47,7 @@ public class PersonRoleControllerTest {
     }
 
     @Test
-    public void checkPut_whenValidIdAndNotExistingRole_thenIsNotFound() throws Exception {
+     void checkPut_whenValidIdAndNotExistingRole_thenIsNotFound() throws Exception {
         Mockito.when(personService.assignRole(eq(1), anyString())).thenThrow(EntityNotFoundException.class);
 
         mockMvc.perform(put(PersonController.PATH + "/1/role/NOT_EXISTING"))
@@ -52,13 +55,13 @@ public class PersonRoleControllerTest {
     }
 
     @Test
-    public void checkDelete_whenValidIdAndValidRole_thenIsNoContent() throws Exception {
+     void checkDelete_whenValidIdAndValidRole_thenIsNoContent() throws Exception {
         mockMvc.perform(delete(PersonController.PATH + "/1/role/ADMIN"))
                 .andExpect(status().isNoContent());
     }
 
     @Test
-    public void checkDelete_whenValidIdAndNotExistingRole_thenIsNotFound() throws Exception {
+     void checkDelete_whenValidIdAndNotExistingRole_thenIsNotFound() throws Exception {
         Mockito.doThrow(EntityNotFoundException.class).when(personService).removeRole(eq(1), anyString());
 
         mockMvc.perform(delete(PersonController.PATH + "/1/role/NOT_EXISTING"))

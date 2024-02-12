@@ -3,16 +3,17 @@ package ch.bbt.uek223.ticketshop.person;
 import ch.bbt.uek223.ticketshop.event.Event;
 import ch.bbt.uek223.ticketshop.person.dto.PersonRequestDto;
 import ch.bbt.uek223.ticketshop.person.dto.PersonResponseDto;
+import ch.bbt.uek223.ticketshop.role.Role;
 import ch.bbt.uek223.ticketshop.role.RoleService;
 import ch.bbt.uek223.ticketshop.security.AuthRequestDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +33,10 @@ public class PersonService {
 
     public boolean existsByEmail(String mail) {
         return personRepository.existsByEmail(mail);
+    }
+
+    public List<GrantedAuthority> getRolesByUserEmail(String email) {
+        return roleService.getRolesByUserEmail(email).stream().map(role -> (GrantedAuthority) role::getName).toList();
     }
 
     public PersonResponseDto findByEmail(String number) {
@@ -59,12 +64,21 @@ public class PersonService {
     }
 
     public void removeRole(int eq, String s) {
-
-
+        Person person = personRepository.findById(eq).orElseThrow(EntityNotFoundException::new);
+        person.setAssignedRoles(person.getAssignedRoles().stream().filter(role -> !role.getName().equals(s)).collect(Collectors.toSet()));
+        personRepository.save(person);
     }
 
-    public Object assignRole(int eq, String s)
+    public List<String> assignRole(int eq, String s)
     {
-        return null;
+        Person person = personRepository.findById(eq).orElseThrow(EntityNotFoundException::new);
+        Role role = roleService.findRoleByName(s);
+        person.getAssignedRoles().add(role);
+        return personRepository.save(person).getAssignedRoles().stream().map(Role::getName).toList();
+    }
+
+    public void delete(int id) {
+        Person person = personRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        personRepository.delete(person);
     }
 }

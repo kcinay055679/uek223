@@ -37,7 +37,7 @@ public class Person {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ManyToMany
-    private List<Role> authorities;
+    private Set<Role> assignedRoles = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -51,7 +51,4 @@ public class Person {
         return Objects.hash(getId());
     }
 
-    public Collection<Object> getRoles() {
- return null;
-    }
 }
