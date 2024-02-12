@@ -104,10 +104,9 @@ public class AuthController {
     public ResponseEntity<?> signIn(@RequestBody AuthRequestDTO authenticationDTO) {
 
         try {
-            List<GrantedAuthority> rolesByUserEmail = personService.getRolesByUserEmail(authenticationDTO.getEmail());
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(
-                            authenticationDTO.getEmail(), authenticationDTO.getPassword(), rolesByUserEmail);
+                            authenticationDTO.getEmail(), authenticationDTO.getPassword());
 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
 

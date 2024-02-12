@@ -2,15 +2,12 @@ package ch.bbt.uek223.ticketshop.security;
 
 import ch.bbt.uek223.ticketshop.person.Person;
 import ch.bbt.uek223.ticketshop.person.PersonRepository;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import ch.bbt.uek223.ticketshop.role.Role;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class BbcUserDetailsService implements UserDetailsService {
@@ -27,7 +24,9 @@ public class BbcUserDetailsService implements UserDetailsService {
         if (optionalPerson == null) {
             throw new UsernameNotFoundException("No user found");
         }
+        List<SimpleGrantedAuthority> list = optionalPerson.getAssignedRoles()
+                .stream().map(Role::getName).map(SimpleGrantedAuthority::new).toList();
 
-        return new User(optionalPerson.getEmail(), optionalPerson.getPassword(), new ArrayList<>());
+        return new User(optionalPerson.getEmail(), optionalPerson.getPassword(), list);
     }
 }

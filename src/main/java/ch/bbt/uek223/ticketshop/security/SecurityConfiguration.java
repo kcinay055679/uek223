@@ -57,7 +57,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE,EventController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
                         .requestMatchers(HttpMethod.POST,EventController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
 
-                        .requestMatchers(HttpMethod.PATCH,TicketController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                        .requestMatchers(HttpMethod.PATCH,TicketController.PATH + "/**").hasAnyAuthority(SecurityConstants.ROLE_ADMIN)
                         .requestMatchers(HttpMethod.POST,TicketController.PATH + "/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
 
                                 .requestMatchers(HttpMethod.GET, EventController.PATH + "/**").permitAll()

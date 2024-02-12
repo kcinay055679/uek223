@@ -12,9 +12,11 @@ public class SecurityConstants {
             "/swagger-ui.html",
             "/swagger-ui/**"
     };
-    public static final String ROLE_USER = "USER";
-    public static final String ROLE_MANAGER = "MANAGER";
-    public static final String ROLE_ADMIN = "ADMIN";
+
+    public static final String ROLE_PREFIX = "SCOPE_";
+    public static final String ROLE_USER = ROLE_PREFIX +"USER";
+    public static final String ROLE_MANAGER = ROLE_PREFIX +"MANAGER";
+    public static final String ROLE_ADMIN = ROLE_PREFIX +"ADMIN";
     private static final String SECRET = "Secret key to generate JWT's (min 256 bits)";
     private static final String ALGORITHM = "HmacSHA256";
     public static final SecretKeySpec SECRET_KEY_SPEC = new SecretKeySpec(SECRET.getBytes(StandardCharsets.UTF_8), ALGORITHM);
