@@ -24,10 +24,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import java.util.List;
 
@@ -40,6 +40,7 @@ import java.util.List;
         scheme = "bearer")
 @EnableWebSecurity
 @EnableMethodSecurity
+@CrossOrigin
 public class SecurityConfiguration {
 
     @Bean
@@ -49,7 +50,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain customFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(e -> e
                 .requestMatchers(HttpMethod.POST, AuthController.PATH + "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityConstants.API_DOCUMENTATION_URLS).permitAll()
