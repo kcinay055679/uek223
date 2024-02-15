@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Ticket</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ch.bbt.uek223.ticketshop.ticket</a>
+</div>
+
+<h1>Coverage Summary for Class: Ticket (ch.bbt.uek223.ticketshop.ticket)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Ticket</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (8/16)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Ticket$HibernateInstantiator$7tKR6zMb</td>
+  </tr>
+  <tr>
+    <td class="name">Ticket$HibernateProxy$JVLVrBfT</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (8/16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ch.bbt.uek223.ticketshop.ticket;
+&nbsp;
+&nbsp;import ch.bbt.uek223.ticketshop.event.Event;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import jakarta.validation.constraints.Size;
+&nbsp;import lombok.*;
+&nbsp;import lombok.experimental.Accessors;
+&nbsp;import org.hibernate.proxy.HibernateProxy;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Getter
+<b class="fc">&nbsp;@Setter</b>
+<b class="nc">&nbsp;@ToString</b>
+&nbsp;@Accessors(chain = true)
+<b class="fc">&nbsp;@RequiredArgsConstructor</b>
+&nbsp;public class Ticket {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<b class="fc">&nbsp;    private Integer id;</b>
+&nbsp;
+&nbsp;    @Column(nullable = false)
+<b class="fc">&nbsp;    private Integer amount;</b>
+&nbsp;
+&nbsp;    @Column(nullable = false)
+&nbsp;    @Size(max = 255)
+<b class="fc">&nbsp;    private String description;</b>
+&nbsp;
+&nbsp;    @Column(nullable = false)
+&nbsp;    @Size(max = 255)
+<b class="fc">&nbsp;    private String name;</b>
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;event_id&quot;)
+<b class="fc">&nbsp;    private Event event;</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public final boolean equals(Object o) {
+<b class="nc">&nbsp;        if (this == o) return true;</b>
+<b class="nc">&nbsp;        if (o == null) return false;</b>
+<b class="nc">&nbsp;        Class&lt;?&gt; oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();</b>
+<b class="nc">&nbsp;        Class&lt;?&gt; thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();</b>
+<b class="nc">&nbsp;        if (thisEffectiveClass != oEffectiveClass) return false;</b>
+<b class="nc">&nbsp;        Ticket ticket = (Ticket) o;</b>
+<b class="nc">&nbsp;        return getId() != null &amp;&amp; Objects.equals(getId(), ticket.getId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public final int hashCode() {
+<b class="fc">&nbsp;        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-12 14:19</div>
+</div>
+</body>
+</html>

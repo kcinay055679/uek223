@@ -1,0 +1,234 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > TicketService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ch.bbt.uek223.ticketshop.ticket</a>
+</div>
+
+<h1>Coverage Summary for Class: TicketService (ch.bbt.uek223.ticketshop.ticket)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TicketService</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (12/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.5%
+  </span>
+  <span class="absValue">
+    (34/38)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TicketService$$SpringCGLIB$$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (12/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.5%
+  </span>
+  <span class="absValue">
+    (34/38)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ch.bbt.uek223.ticketshop.ticket;
+&nbsp;
+&nbsp;import ch.bbt.uek223.ticketshop.ticket.dto.TicketDto;
+&nbsp;import jakarta.persistence.EntityNotFoundException;
+&nbsp;import org.springframework.dao.DataIntegrityViolationException;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Service
+&nbsp;public class TicketService {
+&nbsp;
+&nbsp;    private final TicketRepository ticketRepository;
+&nbsp;    private final TickerMapper ticketMapper;
+&nbsp;
+<b class="fc">&nbsp;    public TicketService(TicketRepository ticketRepository, TickerMapper ticketMapper) {</b>
+<b class="fc">&nbsp;        this.ticketRepository = ticketRepository;</b>
+<b class="fc">&nbsp;        this.ticketMapper = ticketMapper;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public TicketDto create(TicketDto expectedTicketDTO) {
+<b class="fc">&nbsp;        Ticket ticket = ticketMapper.toEntity(expectedTicketDTO);</b>
+<b class="fc">&nbsp;        return ticketMapper.toDto(ticketRepository.save(ticket));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public TicketDto findById(int i) {
+<b class="fc">&nbsp;        return ticketMapper.toDto(findEntityById(i));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Ticket findByIdForUpdates(int i) {
+<b class="fc">&nbsp;        return Optional.ofNullable(ticketRepository.findByIdForUpdate(i)).orElseThrow(() -&gt; new EntityNotFoundException(&quot;Ticket with id &quot; + i + &quot; not found&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Ticket findEntityById(int i) {
+<b class="fc">&nbsp;        return ticketRepository.findById(i).orElseThrow(EntityNotFoundException::new);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;TicketDto&gt; findAll() {
+<b class="fc">&nbsp;        return ticketRepository.findAll().stream().map(ticketMapper::toDto).toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public TicketDto update(TicketDto changingTicketDTO, Integer id) {
+&nbsp;        // Lade das passende Ticket aus der Datenbank, rufe die Methode mergeTicket auf und speichere das Ticket anschliessend wieder.
+&nbsp;//        // ...
+&nbsp;
+<b class="fc">&nbsp;        Ticket existingTicket = findByIdForUpdates(id);</b>
+<b class="fc">&nbsp;        Ticket changingTicket = ticketMapper.toEntity(changingTicketDTO);</b>
+<b class="fc">&nbsp;        mergeTicket(existingTicket, changingTicket);</b>
+<b class="fc">&nbsp;        return ticketMapper.toDto(ticketRepository.save(existingTicket));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void deleteById(int i) {
+<b class="fc">&nbsp;        ticketRepository.deleteById(i);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;TicketDto&gt; findAllUnsold() {
+<b class="fc">&nbsp;        return ticketRepository.findAllUnsold().stream().map(ticketMapper::toDto).toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Properties, Controller mit Injection, weitere Methoden, etc.
+&nbsp;    // ...
+&nbsp;
+&nbsp;    // Lade das passende Ticket aus der Datenbank, rufe die Methode mergeTicket auf und speichere das Ticket anschliessend wieder.
+&nbsp;    @Transactional
+&nbsp;    public TicketDto update(TicketDto ticketDTO) {
+<b class="nc">&nbsp;        Ticket changingTicket = ticketMapper.toEntity(ticketDTO);</b>
+<b class="nc">&nbsp;        Ticket existingTicket = findEntityById(ticketDTO.getId());</b>
+<b class="nc">&nbsp;        mergeTicket(existingTicket, changingTicket);</b>
+<b class="nc">&nbsp;        return ticketMapper.toDto(ticketRepository.save(existingTicket));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    public List&lt;TicketDto&gt; buy(List&lt;TicketDto&gt; ticketDTOs) {
+<b class="fc">&nbsp;        List&lt;Integer&gt; ticketIds = ticketDTOs.stream().map(TicketDto::getId).toList();</b>
+<b class="fc">&nbsp;        List &lt;Ticket&gt; existingTickets = ticketRepository.findAllByIdForUpdate(ticketIds);</b>
+<b class="fc">&nbsp;        if(ticketIds.size() != existingTickets.size()) {</b>
+<b class="fc">&nbsp;            throw new EntityNotFoundException(&quot;Not all tickets could be found&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Ticket&gt; changingTickets = ticketDTOs.stream().map(ticketMapper::toEntity).toList();</b>
+<b class="fc">&nbsp;        mergeTickets(existingTickets, changingTickets);</b>
+&nbsp;
+<b class="fc">&nbsp;        return ticketRepository.saveAll(existingTickets).stream().map(ticketMapper::toDto).toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Finde die Struktur für diese Methode selber heraus. Als Hilfe dienen dir die folgenden Eigenschaften, welche sie erfüllen muss:
+&nbsp;     * 1) Die Anzahl an neu verfügbaren Tickets soll auf das Ticket aus der Datenbank gesetzt werden.
+&nbsp;     * 2) Der neue Name soll übernommen werden, jedoch nur falls der Name nicht null ist.
+&nbsp;     * 3) Das neue Event soll übernommen werden, jedoch nur falls das Event nicht null ist.
+&nbsp;     * 4) Sollte die Anzahl an neu verfügbaren Tickets unter 0 sein, muss eine DataIntegrityViolation geworfen werden.
+&nbsp;     *
+&nbsp;     * @param existing Das bestehende Ticket, welches aus der Datenbank stammen sollte
+&nbsp;     * @param changing Die Ticketentity, welche die neuen Angaben enthält, die auf das DB-Ticket gesetzt werden sollen.
+&nbsp;     */
+&nbsp;    private void mergeTicket(Ticket existing, Ticket changing) {
+<b class="fc">&nbsp;        existing.setAmount(changing.getAmount());</b>
+<b class="fc">&nbsp;        if(changing.getName() != null) {</b>
+<b class="fc">&nbsp;            existing.setName(changing.getName());</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(changing.getEvent() != null) {</b>
+<b class="fc">&nbsp;            existing.setEvent(changing.getEvent());</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(existing.getAmount() &lt; 0) {</b>
+<b class="fc">&nbsp;            throw new DataIntegrityViolationException(&quot;The amount of tickets must be at least 0&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void mergeTickets(List&lt;Ticket&gt; existingTickets, List&lt;Ticket&gt; changingTickets) {
+<b class="fc">&nbsp;        for (Ticket changingTicket : changingTickets) {</b>
+&nbsp;            // Finde zum changingTicket die passende Entity aus der Datenbank
+<b class="fc">&nbsp;            Ticket existingTicket = existingTickets.stream().filter(t -&gt; t.getId().equals(changingTicket.getId())).findFirst().orElseThrow(() -&gt; new EntityNotFoundException(&quot;Ticket with id &quot; + changingTicket.getId() + &quot; not found&quot;));</b>
+<b class="fc">&nbsp;            changingTicket.setAmount(existingTicket.getAmount() - changingTicket.getAmount());</b>
+<b class="fc">&nbsp;            mergeTicket(existingTicket, changingTicket);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-12 14:19</div>
+</div>
+</body>
+</html>
