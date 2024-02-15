@@ -3,7 +3,6 @@ package ch.bbt.uek223.ticketshop.security;
 import ch.bbt.uek223.ticketshop.person.PersonController;
 import ch.bbt.uek223.ticketshop.person.PersonService;
 import ch.bbt.uek223.ticketshop.role.RoleService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,7 +30,7 @@ public class PersonControllerSecurityTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private BbcUserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @MockBean
     private BCryptPasswordEncoder passwordEncoder;

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BbcUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final PersonRepository personRepository;
 
-    public BbcUserDetailsService(PersonRepository personRepository) {
+    public CustomUserDetailsService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 

@@ -8,9 +8,7 @@ import ch.bbt.uek223.ticketshop.person.Person;
 import ch.bbt.uek223.ticketshop.ticket.Ticket;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class DataUtil {
     public static Person getTestPerson() {
@@ -19,7 +17,7 @@ public class DataUtil {
 
     public static Person getTestPersonWithRole() {
         Person person = getTestPerson();
-        person.getAssignedRoles().add(getTestRole());
+        person.setAssignedRoles(Set.of(getTestRole()));
         return person;
     }
 
@@ -38,7 +36,7 @@ public class DataUtil {
             person.setId(i);
             person.setEmail("person" + i + "@foo.bar");
             person.setPassword("password" + i);
-//            person.setRoles(new HashSet<>());
+            person.setAssignedRoles(Set.of(getTestRole()));
             Event event = new Event();
 
             event.setId(i);

@@ -2,7 +2,6 @@ package ch.bbt.uek223.ticketshop.security;
 
 import ch.bbt.uek223.ticketshop.event.EventController;
 import ch.bbt.uek223.ticketshop.event.EventService;
-import ch.bbt.uek223.ticketshop.person.PersonController;
 import ch.bbt.uek223.ticketshop.role.RoleService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,7 @@ public class EventControllerSecurityTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private BbcUserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @MockBean
     private BCryptPasswordEncoder passwordEncoder;

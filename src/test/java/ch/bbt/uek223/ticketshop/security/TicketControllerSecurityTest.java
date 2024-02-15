@@ -1,6 +1,5 @@
 package ch.bbt.uek223.ticketshop.security;
 
-import ch.bbt.uek223.ticketshop.person.PersonController;
 import ch.bbt.uek223.ticketshop.role.RoleService;
 import ch.bbt.uek223.ticketshop.ticket.TicketController;
 import ch.bbt.uek223.ticketshop.ticket.TicketService;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -32,7 +30,7 @@ public class TicketControllerSecurityTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private BbcUserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @MockBean
     private BCryptPasswordEncoder passwordEncoder;
