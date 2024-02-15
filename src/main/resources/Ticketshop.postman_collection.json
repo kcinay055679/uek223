@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "b70950f0-4693-423b-9191-ff255660ec2f",
+		"name": "Ticketshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28142386"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user@user.com\",\r\n    \"password\": \"uer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teffst@test.ch\",\r\n    \"password\": \"uefadsfasdfsadfasdfasdfasdfr\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buy ticket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n        {\r\n            \"id\":1,\r\n            \"amountToBuy\":1,\r\n            \"eventId\":1\r\n        }\r\n    ]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/tickets/buy",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tickets",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buy tickets 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n        {\r\n            \"id\":1,\r\n            \"amountToBuy\":1,\r\n            \"eventId\":1\r\n        }\r\n    ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tickets/buy",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tickets",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDg2MDc0ODQsInN1YiI6InVzZXJAdXNlci5jb20iLCJzY29wZSI6IlVTRVIifQ.U7JcRYxH8DDLMF9vjr9M50D8HGct7YpyD9J6otb8ufc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/events/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"events",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDg2MDc0NTUsInN1YiI6ImFkbWluQGFkbWluLmNvbSIsInNjb3BlIjoiQURNSU4ifQ.8xaylFjklj1LMy-jBcwC8JKAkosrJ36kVkdzMME5UdE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
